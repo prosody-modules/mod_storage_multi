@@ -40,7 +40,7 @@ function keyval_store:set(username, data)
 		module:log("debug", "%s:%s:set(%q)", tostring(backends[i].get), backends[i]._store, username);
 		ok, err = backend:set(username, data);
 		if not ok then
-			module:log("error", "Error in storage driver %s: %s", backend.name, tostring(err));
+			module:log((policy == "one") and "warn" or "error", "Error in storage driver %s: %s", backend.name, tostring(err));
 		else
 			oks = oks + 1;
 		end
