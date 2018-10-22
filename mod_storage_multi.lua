@@ -37,10 +37,10 @@ function keyval_store:set(username, data)
 	local all, one, oks = true, false, 0;
 	for i = 1, #backends do
 		backend = backends[i];
-		module:log("debug", "%s:%s:set(%q)", tostring(backends[i].get), backends[i].store, username);
+		module:log("debug", "%s:%s:set(%q)", tostring(backends[i].get), backends[i]._store, username);
 		ok, err = backend:set(username, data);
 		if not ok then
-			module:log("error", "Error in storage driver %s: %s", backend.name, tostring(err));
+			module:log((policy == "one") and "warn" or "error", "Error in storage driver %s: %s", backend.name, tostring(err));
 		else
 			oks = oks + 1;
 		end
